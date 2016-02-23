@@ -1,0 +1,67 @@
+<div class="container" ng-app="myApp">
+    <div class="row">
+        <div class="col-lg-10">
+            <div ng-controller="MyController" class="my-controller" urlAPI="SearchDocuments">
+                <div class="row">
+                    <div class="col-xs-8 ms-srch-sbLarge ms-srch-sb-borderFocused">
+                        <label for="search" style="display:block;">Pesquisa:</label>
+                        <input id="seatchIManage" ng-model="seatchIManage" class="form-control" style=" width: 83%;border-radius: 5px 0 0 5px;float:left;border-right:none!important;" ng-keypress="Enter($event)" />
+                        <a title="Pesquisa" class="ms-srch-sb-searchLink" ng-click="searchIManage()" href="javascript:" style="float: left;
+                            border: 1px solid gray;
+                            border-left: none;
+                            border-radius: 0px 5px 5px 0;
+                            margin-left: -5px;
+                            height: 34px;left: 0px;">
+                            <img src="/Style Library/Images/searchNew.png" class="searchNew" id="searchImg" alt="Pesquisa">
+                        </a>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <label for="search" style="display: block;">Refinador de resultado:</label>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Refinador de resultado" />
+                    </div>
+                </div>
+
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>From</th>
+                                    <th>For</th>
+                                    <th>Titulo</th>
+                                    <th>Doc.Number</th>
+                                    <th>Version</th>
+                                    <th>Author</th>
+                                    <th>Type</th>
+                                    <th> Edit Time</th>
+                                    <th>Received in</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="item in items | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-click="openDoc(item.ObjectID)">
+                                    <td>{{ item.imProfileCustom13 | split:'|':0 }}</td>
+                                    <td> {{ item.imProfileCustom14 | split:'|':0}}</td>
+                                    <td> {{ item.imProfileDescription }}</td>
+                                    <td> {{ item.imProfileDocNum}}</td>
+                                    <td> {{ item.imProfileVersion}} </td>
+                                    <td>{{ item.imProfileAuthor}}</td>
+                                    <td class="quebra">{{ item.imProfileClass }} </td>
+                                    <td class="quebra">{{ item.imProfileEditDate | DateFormat}}</td>
+                                    <td class="quebra"> {{ item.imProfileCustom22 | DateFormat }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-bind="vazio"></div><span us-spinner="{radius:30, width:8, length: 16}"></span></div>
+                </div>
+            </div>
+
+            <div ng-controller="OtherController" class="other-controller">
+                <div class="text-center">
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/Style library/js/template/dirPagination.tpl.html"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
